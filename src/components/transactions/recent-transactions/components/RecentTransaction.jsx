@@ -3,9 +3,12 @@ import styles from "./RecentTransaction.module.css";
 // import { recentTransactions } from "../../../../mocks/recentTransactions.mocks";
 import { nextSvgIcon, previousSvgIcon } from "../../../../assets";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { TransactionContext } from "../../../../context/TransactionContext";
 
 const RecentTransaction = () => {
-  const [recentTransactions, setRecentTransactions] = useState([]);
+  const { recentTransactions, setRecentTransactions, setCombineExpenseData } =
+    useContext(TransactionContext);
 
   const handleStorageChange = (e) => {
     setRecentTransactions(
@@ -24,10 +27,46 @@ const RecentTransaction = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (recentTransactions.length > 0) {
+      let data = [
+        {
+          category: "Food",
+          price: 0,
+        },
+        {
+          category: "Entertainment",
+          price: 0,
+        },
+        {
+          category: "Travel",
+          price: 0,
+        },
+      ];
+      recentTransactions?.forEach((expense) => {
+        switch (expense.category) {
+          case "food":
+            data[0].price += +expense.price;
+            break;
+          case "entertainment":
+            data[1].price += +expense.price;
+            break;
+          case "travel":
+            data[2].price += +expense.price;
+            break;
+
+          default:
+            console.log("expense");
+        }
+      });
+      setCombineExpenseData(data);
+    }
+  }, [recentTransactions]);
+
   return (
     <>
       <div>
-        <h1>Recent Transactions</h1>
+        <h1 className={styles.recentTransactionTile}>Recent Transactions</h1>
         <div className={styles.transactionContainer}>
           {recentTransactions.length > 0 ? (
             recentTransactions.map((transaction) => (

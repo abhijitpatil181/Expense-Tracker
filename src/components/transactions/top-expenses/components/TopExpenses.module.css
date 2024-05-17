@@ -1,4 +1,4 @@
-h1 {
+.topExpensesTitle{
   width: 261px;
   height: 32px;
   font-family: Ubuntu;
@@ -9,3 +9,14 @@ h1 {
   text-align: left;
   color: #FFFFFF;
 }
+
+
+.barchartContainer{
+    
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 15px;
+  
+}
+
+  

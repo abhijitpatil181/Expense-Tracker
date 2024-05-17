@@ -1,6 +1,7 @@
 import styles from "./ExpenseTracker.module.css";
 import Card from "../card/Card";
 import { useEffect, useState } from "react";
+import { Piechart } from "../piechart";
 
 const ExpenseTracker = () => {
   const [walletBalance, setWalletBalance] = useState("");
@@ -23,20 +24,22 @@ const ExpenseTracker = () => {
 
   return (
     <>
+      <p className={styles.title}>Expense Tracker</p>
       <div className={styles.wrapper}>
-        <div className={styles.cardWrapper}>
-          <Card
-            titleLabel="Wallet Balance"
-            labelValue={walletBalance}
-            buttonLabel="Add Income"
-          />
-          <Card
-            titleLabel="Expenses"
-            labelValue={expenses}
-            buttonLabel="Add Expenses"
-            addIncome={false}
-          />
-        </div>
+        {/* <div className={styles.cardWrapper}> */}
+        <Card
+          titleLabel="Wallet Balance"
+          labelValue={walletBalance}
+          buttonLabel="Add Income"
+        />
+        <Card
+          titleLabel="Expenses"
+          labelValue={expenses}
+          buttonLabel="Add Expenses"
+          addIncome={false}
+        />
+        <Piechart />
+        {/* </div> */}
       </div>
     </>
   );
