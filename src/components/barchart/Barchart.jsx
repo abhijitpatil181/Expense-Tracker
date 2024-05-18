@@ -12,7 +12,6 @@ import { TransactionContext } from "../../context/TransactionContext";
 const Barchart = () => {
   const { combinedExpenseData } = useContext(TransactionContext);
 
-  console.log("combine", combinedExpenseData);
   return (
     <>
       {combinedExpenseData && (
