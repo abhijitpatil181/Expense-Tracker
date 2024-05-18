@@ -5,16 +5,12 @@ import { nextSvgIcon, previousSvgIcon } from "../../../../assets";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { TransactionContext } from "../../../../context/TransactionContext";
+import { getCombinedData } from "../../../../helper/helper";
 
 const RecentTransaction = () => {
   const { recentTransactions, setRecentTransactions, setCombineExpenseData } =
     useContext(TransactionContext);
-
-  const handleStorageChange = (e) => {
-    setRecentTransactions(
-      JSON.parse(e.currentTarget.localStorage.recentTransactions)
-    );
-  };
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     window.addEventListener("storage", handleStorageChange);
@@ -29,39 +25,45 @@ const RecentTransaction = () => {
 
   useEffect(() => {
     if (recentTransactions.length > 0) {
-      let data = [
-        {
-          category: "Food",
-          price: 0,
-        },
-        {
-          category: "Entertainment",
-          price: 0,
-        },
-        {
-          category: "Travel",
-          price: 0,
-        },
-      ];
-      recentTransactions?.forEach((expense) => {
-        switch (expense.category) {
-          case "food":
-            data[0].price += +expense.price;
-            break;
-          case "entertainment":
-            data[1].price += +expense.price;
-            break;
-          case "travel":
-            data[2].price += +expense.price;
-            break;
+      const data = getCombinedData(recentTransactions);
 
-          default:
-            console.log("expense");
-        }
-      });
       setCombineExpenseData(data);
+    } else {
+      setCombineExpenseData([]);
     }
   }, [recentTransactions]);
+
+  useEffect(() => {
+    const data = recentTransactions.slice(
+      currentPage * 3 - 3,
+      currentPage * 3 - 1
+    );
+  }, [currentPage]);
+
+  const handleStorageChange = (e) => {
+    setRecentTransactions(
+      JSON.parse(e.currentTarget.localStorage.recentTransactions)
+    );
+  };
+
+  const onPaginationChange = (label) => {
+    switch (label) {
+      case "previous":
+        if (currentPage !== 1) {
+          setCurrentPage((prevPage) => setCurrentPage(prevPage - 1));
+        }
+        break;
+
+      case "next":
+        if (currentPage !== Math.ceil(recentTransactions.length / 3)) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+        break;
+
+      default:
+        console.log("no pagination");
+    }
+  };
 
   return (
     <>
@@ -69,16 +71,18 @@ const RecentTransaction = () => {
         <h1 className={styles.recentTransactionTile}>Recent Transactions</h1>
         <div className={styles.transactionContainer}>
           {recentTransactions.length > 0 ? (
-            recentTransactions.map((transaction) => (
-              <TransactionDetail
-                key={transaction.id}
-                id={transaction.id}
-                category={transaction.category}
-                title={transaction.title}
-                date={transaction.date}
-                price={transaction.price}
-              />
-            ))
+            recentTransactions
+              .slice(currentPage * 3 - 3, currentPage * 3)
+              .map((transaction) => (
+                <TransactionDetail
+                  key={transaction.id}
+                  id={transaction.id}
+                  category={transaction.category}
+                  title={transaction.title}
+                  date={transaction.date}
+                  price={transaction.price}
+                />
+              ))
           ) : (
             <div
               style={{
@@ -92,7 +96,7 @@ const RecentTransaction = () => {
               </p>
             </div>
           )}
-          {recentTransactions.length !== 0 && (
+          {recentTransactions && recentTransactions.length > 0 && (
             <div
               style={{
                 display: "flex",
@@ -101,7 +105,10 @@ const RecentTransaction = () => {
                 marginTop: "1rem",
               }}
             >
-              <button className={styles.circleButton}>
+              <button
+                className={styles.circleButton}
+                onClick={() => onPaginationChange("previous")}
+              >
                 <img
                   src={previousSvgIcon}
                   style={{ height: "40px", width: "40px" }}
@@ -109,9 +116,12 @@ const RecentTransaction = () => {
                 />
               </button>
               <button className={styles.currentPage}>
-                <p>1</p>
+                <p>{currentPage}</p>
               </button>
-              <button className={styles.circleButton}>
+              <button
+                className={styles.circleButton}
+                onClick={() => onPaginationChange("next")}
+              >
                 <img
                   src={nextSvgIcon}
                   style={{ height: "40px", width: "40px" }}

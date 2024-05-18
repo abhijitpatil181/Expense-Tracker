@@ -11,8 +11,12 @@ import {
 import { enterTainmentSvgIcon } from "../../../../assets";
 import { travelSvgIcon } from "../../../../assets";
 import { enqueueSnackbar } from "notistack";
+import { useState } from "react";
+import { AddExpense } from "../../../modal";
 
 const TransactionDetail = ({ id, category, title, date, price }) => {
+  const [open, setOpen] = useState(false);
+
   let svg;
   if (category === "food") {
     svg = foodSvgIcon;
@@ -21,6 +25,10 @@ const TransactionDetail = ({ id, category, title, date, price }) => {
   } else {
     svg = travelSvgIcon;
   }
+
+  const onClickHandler = () => {
+    setOpen(true);
+  };
 
   const deleteTransaction = (id) => {
     let allTransactios = JSON.parse(localStorage.getItem("recentTransactions"));
@@ -83,7 +91,7 @@ const TransactionDetail = ({ id, category, title, date, price }) => {
           </button>
           <button
             style={{ border: "none", background: "none" }}
-            onClick={() => console.log()}
+            onClick={onClickHandler}
           >
             <img
               src={editSvgIconIcon}
@@ -93,6 +101,14 @@ const TransactionDetail = ({ id, category, title, date, price }) => {
         </div>
       </div>
       <hr className={styles.hrLine} />
+      {open && (
+        <AddExpense
+          open={open}
+          setOpen={setOpen}
+          edit={true}
+          transactionId={id}
+        />
+      )}
     </>
   );
 };

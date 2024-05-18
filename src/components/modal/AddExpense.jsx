@@ -5,13 +5,23 @@ import { dateConvertor } from "../../helper/helper";
 import { v4 as uuidv4 } from "uuid";
 import { enqueueSnackbar } from "notistack";
 
-const AddExpense = ({ open, setOpen }) => {
+const AddExpense = ({ open, setOpen, edit = false, transactionId = "" }) => {
   const [form, setForm] = useState({
     title: "",
     price: "",
     category: "",
     date: "",
   });
+
+  useEffect(() => {
+    if (edit) {
+      let previousData = JSON.parse(localStorage.getItem("recentTransactions"));
+
+      let data = previousData.find((item) => item.id === transactionId);
+      const { id, ...rest } = data;
+      setForm(rest);
+    }
+  }, []);
 
   const changeHandler = (label, e) => {
     let value =
@@ -27,17 +37,45 @@ const AddExpense = ({ open, setOpen }) => {
     let balance = localStorage.getItem("walletBalance");
     let expenses = localStorage.getItem("expenses");
     let previousData = JSON.parse(localStorage.getItem("recentTransactions"));
-    let newFormData = [...previousData, { ...form, id: uuidv4() }];
-    if (+balance < +form.price) {
-      enqueueSnackbar("You dont have sufficient balance to buy this", {
-        variant: "error",
-      });
-      return;
+    // let newFormData = [...previousData, { ...form, id: uuidv4() }];
+    let newFormData = [];
+    let balannceToUpdateInWallet = "";
+    let balanceToUpdatExpense = "";
+
+    if (edit) {
+      let index = previousData.findIndex((item) => item.id === transactionId);
+      // previousData[index] = form;
+      newFormData = [...previousData];
+      newFormData[index] = { ...form, id: transactionId };
+      if (+form.price > +previousData[index].price) {
+        balannceToUpdateInWallet =
+          "-" + `${+form.price - +previousData[index].price}`;
+        balanceToUpdatExpense = `${+form.price - +previousData[index].price}`;
+      } else {
+        balannceToUpdateInWallet = `${
+          +previousData[index].price - +form.price
+        }`;
+        balanceToUpdatExpense =
+          "-" + `${+previousData[index].price - +form.price}`;
+      }
+    } else {
+      newFormData = [...previousData, { ...form, id: uuidv4() }];
+      if (+balance < +form.price) {
+        enqueueSnackbar("You dont have sufficient balance to buy this", {
+          variant: "error",
+        });
+        return;
+      }
+      balannceToUpdateInWallet = "-" + `${form.price}`;
+      balanceToUpdatExpense = `${form.price}`;
     }
 
     localStorage.setItem("recentTransactions", JSON.stringify(newFormData));
-    localStorage.setItem("walletBalance", `${+balance - +form.price}`);
-    localStorage.setItem("expenses", `${+expenses + +form.price}`);
+    localStorage.setItem(
+      "walletBalance",
+      `${+balance + +balannceToUpdateInWallet}`
+    );
+    localStorage.setItem("expenses", `${+expenses + +balanceToUpdatExpense}`);
     dispatchEvent(new Event("storage"));
     enqueueSnackbar("New Item Added", {
       variant: "success",
