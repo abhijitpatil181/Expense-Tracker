@@ -1,0 +1,51 @@
+.transactionWrapper {
+  position: relative;
+  left: 20px;
+  right: 20px;
+  width: calc(100vw - 64px);
+  min-height: 450px;
+  margin: 1.25rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two columns of equal size */
+  grid-template-rows: 1fr;
+  grid-column-gap: 4rem;
+  /* One row */
+}
+
+.recentTransactionItem {
+  grid-column: 1;
+  /* Place in the first column */
+  grid-row: 1;
+  /* Place in the first row */
+}
+
+.expenseItem {
+  grid-column: 2;
+  /* Place in the second column */
+  grid-row: 1;
+  /* Place in the first row */
+}
+
+@media (max-width: 991px) {
+  .transactionWrapper {
+    grid-template-columns: 1fr;
+    /* One column */
+    grid-template-rows: repeat(2, 1fr);
+    /* Two rows */
+  }
+
+  .recentTransactionItem {
+    grid-column: 1;
+    /* Place in the first column */
+    grid-row: 1;
+    /* Place in the first row */
+  }
+
+  .expenseItem {
+    grid-column: 1;
+    /* Place in the first column */
+    grid-row: 2;
+    /* Place in the second row */
+  }
+}

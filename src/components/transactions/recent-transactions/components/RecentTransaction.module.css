@@ -1,0 +1,72 @@
+.recentTransactionTile{
+  width: 261px;
+  height: 32px;
+  font-family: Ubuntu;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 32.17px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.transactionContainer{
+  /* width: 738.33px; */
+  height:95%;
+  background-color:#FFFFFF;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 15px;
+  /* min-width: 738.33px; */
+  width: 100%;
+  
+ 
+}
+
+.circleButton{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #F1F1F1;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border: none;
+  cursor: pointer;
+ 
+}
+
+.currentPage{
+  width: 50px;
+    height: 50px;
+   border: none;
+    border-radius: 5px;
+    background-color: #43967B;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    margin: 0 1rem;
+   
+}
+
+.currentPage p{
+  width: 14px;
+  height: 28px;
+  font-family: Ubuntu;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 27.58px;
+  text-align: center;
+  color:#FFFFFF;;
+  margin:0;
+  margin: auto;
+  
+}
+
+.recentTransaction{
+  width: 261px;
+  height: 32px;
+  font-family: Ubuntu;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 32.17px;
+  text-align: center;
+  color:#9B9B9B;
+}
+

@@ -1,0 +1,10 @@
+
+.expense-paper{
+  margin: 36px 12px 12px 12px;
+  background-color: var(--background-color-primary);
+  border-radius: 3px;
+  min-height: calc(100vh - 48px);
+  width: calc(100vw - 24px);
+}
+
+

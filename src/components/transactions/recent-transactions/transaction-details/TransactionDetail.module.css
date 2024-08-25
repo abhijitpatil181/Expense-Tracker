@@ -1,0 +1,54 @@
+.iconBackground{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color:#D9D9D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  width: 59px;
+  height: 22px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: left;
+  color:#000000;
+  margin: 0;
+}
+
+.date{
+  width: 115px;
+  height: 22px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  text-align: left;
+  color: #9B9B9B;
+  margin: 0;
+  
+}
+
+.price{
+  width: 37px;
+  height: 22px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 21.79px;
+  text-align: left;
+  color: #F4BB4A;
+}
+
+.hrLine{
+  width: calc(100%-5px);
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  border: 1px solid #9B9B9B
+   
+}

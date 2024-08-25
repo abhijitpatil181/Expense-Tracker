@@ -1,0 +1,10 @@
+.pieChartContainer {
+  height: 100%;
+  width: 355.41px;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
