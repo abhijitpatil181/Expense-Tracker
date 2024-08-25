@@ -6,9 +6,12 @@ const Transactions = () => {
   return (
     <>
       <div className={styles.transactionWrapper}>
-        <RecentTransaction />
-
-        <TopExpenses />
+        <div className={styles.recentTransactionItem}>
+          <RecentTransaction />
+        </div>
+        <div className={styles.expenseItem}>
+          <TopExpenses />
+        </div>
       </div>
     </>
   );

@@ -6,14 +6,13 @@ const TopExpenses = () => {
     <>
       <div
         style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          flexDirection: "column",
-          width: "738.33px",
+          // minWidth: "738.33px",
+          width: "100%%",
+          minHeight: "380px",
+          height: "calc(100% - 70px)",
         }}
       >
         <h1 className={styles.topExpensesTitle}>Top Expenses</h1>
-
         <Barchart />
       </div>
     </>

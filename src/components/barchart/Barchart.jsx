@@ -11,13 +11,14 @@ import { TransactionContext } from "../../context/TransactionContext";
 
 const Barchart = () => {
   const { combinedExpenseData } = useContext(TransactionContext);
+  console.log("combined Expense Data", combinedExpenseData);
 
   return (
     <>
       {combinedExpenseData && (
         <ResponsiveContainer
           width="100%"
-          height="100%"
+          height="95%"
           style={{
             backgroundColor: "#FFFFFF",
             boxShadow: "0px 4px 4px 0px #00000040",

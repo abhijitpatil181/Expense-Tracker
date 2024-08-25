@@ -11,11 +11,14 @@
 }
 
 .transactionContainer{
-  width: 738.33px;
-  height: 400px;
+  /* width: 738.33px; */
+  height:95%;
   background-color:#FFFFFF;
   box-shadow: 0px 4px 4px 0px #00000040;
   border-radius: 15px;
+  /* min-width: 738.33px; */
+  width: 100%;
+  
  
 }
 
