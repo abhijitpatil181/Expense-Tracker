@@ -17,12 +17,12 @@ function App() {
   };
 
   useEffect(() => {
-    // Check if walletBalance item already exists
+    
     if (!localStorage.getItem("walletBalance")) {
       localStorage.setItem("walletBalance", "5000");
     }
 
-    // Check if recentTransactions item already exists
+   
     if (!localStorage.getItem("recentTransactions")) {
       localStorage.setItem("recentTransactions", JSON.stringify([]));
     }
